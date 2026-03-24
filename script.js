@@ -16,15 +16,35 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   });
 });
 
-// ===== SMOOTH SCROLLING =====
+// ===== SMOOTH SCROLLING (custom RAF easing) =====
+function smoothScrollTo(targetY, duration) {
+  const startY = window.scrollY;
+  const diff = targetY - startY;
+  let startTime = null;
+
+  function easeInOutQuart(t) {
+    return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+  }
+
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, startY + diff * easeInOutQuart(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      const headerHeight = 80;
-      const targetPosition = target.offsetTop - headerHeight;
-      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      const headerHeight = document.getElementById('header').offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+      smoothScrollTo(targetPosition, 900);
     }
   });
 });
@@ -152,6 +172,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (arrowUp && arrowDown) {
       arrowUp.disabled = currentIndex === 0;
       arrowDown.disabled = currentIndex === categories[currentCategory] - 1;
+    }
+    const counter = document.getElementById('carouselCounter');
+    if (counter) {
+      const total = categories[currentCategory];
+      counter.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     }
   }
 
@@ -406,6 +431,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function refreshBtns() {
       if (arrowUpEl) arrowUpEl.disabled = idx === 0;
       if (arrowDownEl) arrowDownEl.disabled = idx === imageCount - 1;
+      const counter = document.getElementById(`tripleCounter-${category}`);
+      if (counter) {
+        counter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(imageCount).padStart(2, '0')}`;
+      }
     }
 
     if (arrowUpEl) arrowUpEl.addEventListener('click', () => {
