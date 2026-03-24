@@ -1159,7 +1159,7 @@ h1, h2, h3, h4, .carousel-label {
   }
 
   .tab-button {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     letter-spacing: 2px;
     padding: 12px 12px;
   }
@@ -1240,7 +1240,7 @@ h1, h2, h3, h4, .carousel-label {
   }
 
   .tab-button {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     letter-spacing: 2px;
     padding: 12px 8px;
   }
@@ -1250,10 +1250,10 @@ h1, h2, h3, h4, .carousel-label {
   }
 
   .carousel-container {
-      height: 50vh;
-      width: 80vw;
-      max-width: 280px;
-      margin: 0 auto;
+    height: 50vh;
+    width: 80vw;
+    max-width: 280px;
+    margin: 0 auto;
   }
 
   .logoAV {
@@ -1271,6 +1271,12 @@ h1, h2, h3, h4, .carousel-label {
     height: 100%;
   }
 
+  .hero-tagline {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 250;
+    font-size: 1.4rem;
+  }
+
 }
 
 @media (max-width: 320px) {
@@ -1281,12 +1287,22 @@ h1, h2, h3, h4, .carousel-label {
 
   .tab-button {
     padding: 10px 15px;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
 
-  /* .carousel-container {
-    height: 55vh;
-  } */
+  .hero-tagline {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 250;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 303px) {
+  .hero-tagline {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 250;
+    font-size: 0.9rem;
+  }
 }
 
 @media (min-width: 1024px) {
