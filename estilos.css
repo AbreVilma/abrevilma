@@ -634,6 +634,7 @@ h1, h2, h3, h4, .carousel-label {
   display: inline-block;
   padding: 8px;
   border-radius: 10px;
+  margin-bottom: 15px;
   background: linear-gradient(140deg, var(--light-green), var(--primary-green));
   box-shadow: 0 5px 15px var(--shadow);
   transition: background 0.3s ease, transform 0.3s ease;
