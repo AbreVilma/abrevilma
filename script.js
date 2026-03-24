@@ -51,16 +51,29 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // ===== HEADER SCROLL TRANSITION PROGRESIVA =====
 const header = document.getElementById('header');
+let lastScrollY = window.scrollY;
 
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   const scrollProgress = Math.min(scrollY / 200, 1);
 
+  // scrolled class: logo shrinks
   if (scrollProgress > 0.5) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
   }
+
+  // nav hide/show on scroll direction (desktop only)
+  if (window.innerWidth >= 1024) {
+    if (scrollY > lastScrollY && scrollY > 80) {
+      header.classList.add('nav-hidden');
+    } else if (scrollY < lastScrollY) {
+      header.classList.remove('nav-hidden');
+    }
+  }
+
+  lastScrollY = scrollY;
 });
 
 // ===== CAROUSEL FUNCTIONALITY OPTIMIZADO =====

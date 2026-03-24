@@ -98,11 +98,37 @@ h1, h2, h3, h4, .carousel-label {
 }
 
 @media (min-width: 1024px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 40px 16px;
+  }
+
   .desktop-nav {
     display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 14px;
+    overflow: hidden;
+    max-height: 60px;
+    opacity: 1;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.4s ease;
   }
+
+  .header.nav-hidden .desktop-nav {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    pointer-events: none;
+  }
+
   .nav-container {
     display: none !important;
+  }
+
+  .header.scrolled {
+    padding: 12px 40px;
   }
 }
 
@@ -449,8 +475,8 @@ h1, h2, h3, h4, .carousel-label {
 
 .hero-tagline {
   font-family: 'Raleway', sans-serif;
-  font-weight: 400;
-  font-size: 0.72rem;
+  font-weight: 250;
+  font-size: 1.9rem;
   text-transform: uppercase;
   letter-spacing: 6px;
   color: rgba(255, 255, 255, 0.92);
@@ -585,11 +611,12 @@ h1, h2, h3, h4, .carousel-label {
 }
 
 
+
 /* ===== INSTAGRAM ===== */
 .social-links {
   text-align: center;
   margin: 0 auto;
-  padding: 50px 20px;
+  padding: 25px 20px;
   max-width: 500px;
 }
 
@@ -597,20 +624,18 @@ h1, h2, h3, h4, .carousel-label {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-weight: 300;
-  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  font-size: clamp(1.5rem, 2.2vw, 1.3rem);
   color: var(--light-text);
-  margin-bottom: 22px;
   letter-spacing: 0.5px;
 }
 
 .social-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--primary-green);
+  margin-top: 15px;
+  display: inline-block;
+  padding: 8px;
+  border-radius: 10px;
+  background: linear-gradient(140deg, var(--light-green), var(--primary-green));
+  box-shadow: 0 5px 15px var(--shadow);
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
@@ -1001,10 +1026,9 @@ h1, h2, h3, h4, .carousel-label {
 }
 
 .footer-logo img {
-  height: 55px;
+  height: 65px;
   width: auto;
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .footer-tagline {
