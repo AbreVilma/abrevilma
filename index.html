@@ -7,7 +7,7 @@
   <link rel="icon" href="img/logoAVcirculo.png" type="image/jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilos.css" />
   <script src="script.js" defer></script>
 </head>
@@ -17,6 +17,13 @@
   <a href="#">
     <img src="img/logoAV.jpg" alt="AbreVilma" class="logoAV" />
   </a>
+
+  <!-- Desktop nav: siempre visible en pantallas grandes -->
+  <nav class="desktop-nav" id="desktopNav">
+    <a href="#galeria">Creaciones</a>
+    <a href="#work">¿Cómo Trabajamos?</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
 
   <div class="nav-container" id="navContainer">
     <button class="hamburger" id="hamburger">
@@ -30,43 +37,102 @@
 <!-- Mobile Menu -->
 <nav class="mobile-menu" id="mobileMenu">
   <a href="#galeria">Creaciones</a>
-  <a href="#contacto">Contacto</a>
   <a href="#work">¿Cómo Trabajamos?</a>
+  <a href="#contacto">Contacto</a>
 </nav>
+
+<!-- Hero Section -->
+<section class="hero-section" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tagline">Atelier de Alta Costura</p>
+      <a href="#galeria" class="hero-cta">Descubrir</a>
+  <div class="hero-scroll-hint">
+    <span></span>
+  </div>
+</section>
 
 
 <section class="carousel-section" id="galeria">
   <div class="section">
-    <p style="margin-top: 115px !important;"></p>
-    <!-- <h2 >Nuestras Creaciones</h2> -->
+    <h2 class="gallery-title">Creaciones</h2>
 
-    <div class="tab-menu">
-      <button class="tab-button" data-category="madrinas">Madrinas</button>
-      <button class="tab-button active" data-category="novias">Novias</button>
-      <button class="tab-button" data-category="invitadas">Invitadas</button>
+    <!-- Modo carrusel único (móvil / tablet vertical) -->
+    <div class="carousel-single-mode">
+      <div class="tab-menu">
+        <button class="tab-button" data-category="madrinas">Madrinas</button>
+        <button class="tab-button active" data-category="novias">Novias</button>
+        <button class="tab-button" data-category="invitadas">Invitadas</button>
+      </div>
+
+      <div class="carousel-wrapper">
+        <div class="carousel-container" id="carouselContainer">
+          <button class="carousel-arrow up" id="arrowUp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M7 14l5-5 5 5z"/>
+            </svg>
+          </button>
+          <div class="carousel-track" id="carouselTrack"></div>
+          <button class="carousel-arrow down" id="arrowDown">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <p class="carousel-counter" id="carouselCounter">01 / 22</p>
     </div>
 
-    <div class="carousel-wrapper">
-      <div class="carousel-container" id="carouselContainer">
+    <!-- Modo triple carrusel (escritorio / iPad horizontal) -->
+    <div class="carousel-triple-mode">
+      <div class="carousel-triple">
 
-        <!-- Flecha hacia arriba -->
-        <button class="carousel-arrow up" id="arrowUp">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M7 14l5-5 5 5z"/>
-          </svg>
-        </button>
-        
-        <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-column">
+          <h3 class="carousel-label">Madrinas</h3>
+          <div class="carousel-container" id="tripleContainer-madrinas">
+            <button class="carousel-arrow up" id="tripleUp-madrinas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+            </button>
+            <div class="carousel-track" id="tripleTrack-madrinas"></div>
+            <button class="carousel-arrow down" id="tripleDown-madrinas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </div>
+          <p class="carousel-counter" id="tripleCounter-madrinas">01 / 16</p>
         </div>
-        
-        <!-- Flecha hacia abajo -->
-        <button class="carousel-arrow down" id="arrowDown">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5z"/>
-          </svg>
-        </button>
+
+        <div class="carousel-column">
+          <h3 class="carousel-label">Novias</h3>
+          <div class="carousel-container" id="tripleContainer-novias">
+            <button class="carousel-arrow up" id="tripleUp-novias">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+            </button>
+            <div class="carousel-track" id="tripleTrack-novias"></div>
+            <button class="carousel-arrow down" id="tripleDown-novias">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </div>
+          <p class="carousel-counter" id="tripleCounter-novias">01 / 22</p>
+        </div>
+
+        <div class="carousel-column">
+          <h3 class="carousel-label">Invitadas</h3>
+          <div class="carousel-container" id="tripleContainer-invitadas">
+            <button class="carousel-arrow up" id="tripleUp-invitadas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+            </button>
+            <div class="carousel-track" id="tripleTrack-invitadas"></div>
+            <button class="carousel-arrow down" id="tripleDown-invitadas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </div>
+          <p class="carousel-counter" id="tripleCounter-invitadas">01 / 18</p>
+        </div>
+
       </div>
     </div>
+
   </div>
 </section>
 
@@ -79,13 +145,74 @@
   </div>
 </section>
 
+    <section class="work-section" id="work">
+      <div class="process-block">
+        <div class="process-block-inner">
+          <h2>El Proceso</h2>
+          <p class="work-intro">La primera cita es la más especial: quiero conoceros, escuchar vuestros gustos e ilusiones, ver fotos que os inspiren y, sobre todo, entender vuestra silueta para pensar qué os puede favorecer más.</p>
+
+          <div class="process-steps">
+            <div class="process-step">
+              <span class="step-num">I</span>
+              <div class="step-body">
+                <h4>Primera Cita</h4>
+                <p>Nos conocemos, revisamos tejidos, detalles y formas. Tomo medidas para preparar un presupuesto personalizado.</p>
+              </div>
+            </div>
+            <div class="process-step">
+              <span class="step-num">II</span>
+              <div class="step-body">
+                <h4>Diseño &amp; Propuesta</h4>
+                <p>Pienso en cada novia en particular y envío un boceto del vestido junto con la propuesta económica.</p>
+              </div>
+            </div>
+            <div class="process-step">
+              <span class="step-num">III</span>
+              <div class="step-body">
+                <h4>Confirmación</h4>
+                <p>Una vez definido el diseño, comenzamos con las pruebas: cuatro sesiones, una cada mes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section work-section-bottom">
+        <div class="pruebas-section">
+          <h3 class="pruebas-title">Las Pruebas</h3>
+          <div class="pruebas-grid">
+            <div class="prueba-item">
+              <span class="prueba-num">01</span>
+              <h4>Toile</h4>
+              <p>Confeccionamos el vestido en una tela base para hacer modificaciones de escotes, mangas, cortes… Aquí se define con claridad cómo será el diseño final.</p>
+            </div>
+            <div class="prueba-item">
+              <span class="prueba-num">02</span>
+              <h4>Tela Definitiva</h4>
+              <p>Trabajamos ya sobre la tela definitiva y añadimos detalles como puntillas, adornos o complementos — capa, chaqueta, cola desmontable.</p>
+            </div>
+            <div class="prueba-item">
+              <span class="prueba-num">03</span>
+              <h4>Revisión</h4>
+              <p>El vestido está casi terminado; revisamos comodidad, movimiento y, si lleváis velo, decidimos el tipo y la longitud para ver el conjunto completo.</p>
+            </div>
+            <div class="prueba-item">
+              <span class="prueba-num">04</span>
+              <h4>Entrega</h4>
+              <p>El vestido está listo. Ensayamos cómo moveros con él, cómo abrochar cada parte y cómo desmontar los elementos extra.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="work-closing">Hacer un vestido a medida no tiene nada que ver con comprar uno ya confeccionado. Se disfruta en cada etapa del proceso: cada prueba es una nueva ilusión, un momento único para compartir con vuestras familias o amigos más íntimos.</p>
+      </div>
+    </section>
 <section class="contact-section" id="contacto">
   <div class="section">
     <h2>Contacto</h2>
+    <p class="contact-intro">Trabajamos exclusivamente con cita previa para brindarte una atención personalizada. Estaremos encantados de escucharte y acompañarte en este proceso, <strong>ponte en contacto con nosotros</strong>.</p>
     <div class="contact-grid">
       <div class="contact-info">
-        <p>Trabajamos exclusivamente con cita previa para brindarte una atención personalizada. Estaremos encantados de escucharte y acompañarte en este proceso, <strong>ponte en contacto con nosotros</strong>.</p>
-        
         <div class="contact-item">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
             <path d="M6.62 10.79a15.093 15.093 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.05-.24c1.12.37 2.33.57 3.54.57a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.07 22 2 13.93 2 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.21.2 2.42.57 3.54a1 1 0 0 1-.24 1.05l-2.21 2.2z"/>
@@ -125,77 +252,25 @@
     </div>
   </div>
 </section>
-
-    <section class="section" id="work">
-        <h2>¿Cómo Trabajamos?</h2>
-        <div class="work-content">
-            <div class="intro-text">
-                <p>La primera cita es la más especial: quiero conoceros, escuchar vuestros gustos e ilusiones, ver fotos que os inspiren y, sobre todo, entender vuestra silueta para pensar qué os puede favorecer más.</p>
-            </div>
-
-            <div class="process-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-icon" data-step="1"></div>
-                    <div class="timeline-content">
-                        <h4>Primera Cita</h4>
-                        <p>Nos conocemos, revisamos tejidos, detalles y formas. Tomo medidas para preparar un presupuesto personalizado.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-icon" data-step="2"></div>
-                    <div class="timeline-content">
-                        <h4>Diseño & Propuesta</h4>
-                        <p>Pienso en cada novia en particular y envío un boceto del vestido junto con la propuesta económica.</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-icon" data-step="3"></div>
-                    <div class="timeline-content">
-                        <h4>Confirmación</h4>
-                        <p>Una vez definido el diseño, comenzamos con las pruebas: cuatro sesiones, una cada mes.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pruebas-section">
-                <h3>Las Pruebas</h3>
-                
-                <div class="pruebas-grid">
-                    <div class="prueba-card">
-                        <div class="prueba-number">1</div>
-                        <h4>Primera Prueba (Toile)</h4>
-                        <p>Confeccionamos el vestido en una tela base para hacer modificaciones de escotes, mangas, cortes… Aquí se define con claridad cómo será el diseño final.</p>
-                    </div>
-                    
-                    <div class="prueba-card">
-                        <div class="prueba-number">2</div>
-                        <h4>Segunda Prueba</h4>
-                        <p>Trabajamos ya sobre la tela definitiva y añadimos detalles como puntillas, adornos o complementos (capa, chaqueta, cola desmontable…).</p>
-                    </div>
-                    
-                    <div class="prueba-card">
-                        <div class="prueba-number">3</div>
-                        <h4>Tercera Prueba</h4>
-                        <p>El vestido está casi terminado; revisamos comodidad, movimiento y, si lleváis velo, decidimos el tipo y la longitud para ver el conjunto completo.</p>
-                    </div>
-                    
-                    <div class="prueba-card">
-                        <div class="prueba-number">4</div>
-                        <h4>Cuarta Prueba</h4>
-                        <p>El vestido está listo. Ensayamos cómo moveros con él, cómo abrochar cada parte y cómo desmontar los elementos extra. Os damos el velo preparado para la peluquería.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="closing-text">
-                <p>Hacer un vestido a medida no tiene nada que ver con comprar uno ya confeccionado. Se disfruta en cada etapa del proceso: cada prueba es una nueva ilusión, un momento único para compartir con vuestras familias o amigos más íntimos y hacerles partícipes de uno de los instantes más importantes de vuestra vida.</p>
-            </div>
-        </div>
-    </section>
 <footer class="footer">
-  <p>&copy; 2025 AbreVilma - Todos los derechos reservados | Diseño y creación de vestidos de novia a medida.</p>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="img/logoAVcirculo.png" alt="AbreVilma" />
+    </div>
+    <div class="footer-info">
+      <p class="footer-tagline">Diseño y creación de vestidos a medida</p>
+      <div class="footer-links">
+        <a href="tel:682450484">682 450 484</a>
+        <span class="footer-sep">·</span>
+        <a href="https://instagram.com/abre_vilma" target="_blank" rel="noopener noreferrer">@abre_vilma</a>
+        <span class="footer-sep">·</span>
+        <a href="#galeria">Creaciones</a>
+        <span class="footer-sep">·</span>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; 2025 AbreVilma · Todos los derechos reservados</p>
 </footer>
 
 </body>

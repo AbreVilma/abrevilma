@@ -16,31 +16,64 @@ mobileMenu.querySelectorAll('a').forEach(link => {
   });
 });
 
-// ===== SMOOTH SCROLLING =====
+// ===== SMOOTH SCROLLING (custom RAF easing) =====
+function smoothScrollTo(targetY, duration) {
+  const startY = window.scrollY;
+  const diff = targetY - startY;
+  let startTime = null;
+
+  function easeInOutQuart(t) {
+    return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+  }
+
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    window.scrollTo(0, startY + diff * easeInOutQuart(progress));
+    if (progress < 1) requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+}
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      const headerHeight = 80;
-      const targetPosition = target.offsetTop - headerHeight;
-      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      const headerHeight = document.getElementById('header').offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+      smoothScrollTo(targetPosition, 900);
     }
   });
 });
 
 // ===== HEADER SCROLL TRANSITION PROGRESIVA =====
 const header = document.getElementById('header');
+let lastScrollY = window.scrollY;
 
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
   const scrollProgress = Math.min(scrollY / 200, 1);
 
+  // scrolled class: logo shrinks
   if (scrollProgress > 0.5) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
   }
+
+  // nav hide/show on scroll direction (desktop only)
+  if (window.innerWidth >= 1024) {
+    if (scrollY > lastScrollY && scrollY > 80) {
+      header.classList.add('nav-hidden');
+    } else if (scrollY < lastScrollY) {
+      header.classList.remove('nav-hidden');
+    }
+  }
+
+  lastScrollY = scrollY;
 });
 
 // ===== CAROUSEL FUNCTIONALITY OPTIMIZADO =====
@@ -152,6 +185,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (arrowUp && arrowDown) {
       arrowUp.disabled = currentIndex === 0;
       arrowDown.disabled = currentIndex === categories[currentCategory] - 1;
+    }
+    const counter = document.getElementById('carouselCounter');
+    if (counter) {
+      const total = categories[currentCategory];
+      counter.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
     }
   }
 
@@ -367,4 +405,130 @@ document.addEventListener("DOMContentLoaded", () => {
     setPositionByIndex();
     updateArrows();
   }, 100);
+
+  // ===== TRIPLE CAROUSEL (ESCRITORIO) =====
+  function createCarouselInstance(category, imageCount, patternStr, container, track, arrowUpEl, arrowDownEl) {
+    let idx = 0;
+    let dragging = false;
+    let startY = 0;
+    let translate = 0;
+    let prevTrans = 0;
+    let raf = 0;
+
+    // Cargar imágenes
+    track.innerHTML = '';
+    for (let i = 1; i <= imageCount; i++) {
+      const slide = document.createElement('div');
+      slide.classList.add('carousel-slide');
+      const img = document.createElement('img');
+      img.src = patternStr.replace('{index}', i);
+      img.alt = `${category} ${i}`;
+      img.loading = i <= 3 ? 'eager' : 'lazy';
+      img.onerror = function () { console.warn(`Imagen no encontrada: ${this.src}`); };
+      slide.appendChild(img);
+      track.appendChild(slide);
+    }
+
+    function updateHeights() {
+      const h = container.clientHeight;
+      track.querySelectorAll('.carousel-slide').forEach(s => { s.style.height = `${h}px`; });
+    }
+
+    function setPos() {
+      const h = container.clientHeight;
+      translate = Math.round(idx * -h);
+      prevTrans = translate;
+      track.style.transform = `translateY(${translate}px)`;
+    }
+
+    function refreshBtns() {
+      if (arrowUpEl) arrowUpEl.disabled = idx === 0;
+      if (arrowDownEl) arrowDownEl.disabled = idx === imageCount - 1;
+      const counter = document.getElementById(`tripleCounter-${category}`);
+      if (counter) {
+        counter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(imageCount).padStart(2, '0')}`;
+      }
+    }
+
+    if (arrowUpEl) arrowUpEl.addEventListener('click', () => {
+      if (idx > 0) {
+        idx--;
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        setPos();
+        refreshBtns();
+      }
+    });
+
+    if (arrowDownEl) arrowDownEl.addEventListener('click', () => {
+      if (idx < imageCount - 1) {
+        idx++;
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        setPos();
+        refreshBtns();
+      }
+    });
+
+    function getY(e) { return e.type.includes('mouse') ? e.pageY : e.touches[0].clientY; }
+
+    function animate() {
+      track.style.transform = `translateY(${translate}px)`;
+      if (dragging) raf = requestAnimationFrame(animate);
+    }
+
+    function onStart(e) {
+      if (e.target.closest('.carousel-arrow')) return;
+      e.preventDefault();
+      dragging = true;
+      startY = getY(e);
+      track.style.transition = 'none';
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(animate);
+    }
+
+    function onMove(e) {
+      if (!dragging) return;
+      e.preventDefault();
+      translate = prevTrans + getY(e) - startY;
+    }
+
+    function onEnd() {
+      if (!dragging) return;
+      dragging = false;
+      cancelAnimationFrame(raf);
+      const moved = translate - prevTrans;
+      const thresh = container.clientHeight * 0.15;
+      if (moved < -thresh && idx < imageCount - 1) idx++;
+      else if (moved > thresh && idx > 0) idx--;
+      track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+      setPos();
+      refreshBtns();
+    }
+
+    container.addEventListener('mousedown', onStart, { passive: false });
+    container.addEventListener('touchstart', onStart, { passive: false });
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchend', onEnd);
+    document.addEventListener('mousemove', onMove, { passive: false });
+    document.addEventListener('touchmove', onMove, { passive: false });
+
+    window.addEventListener('resize', () => setTimeout(() => { setPos(); updateHeights(); }, 150));
+
+    setTimeout(() => { updateHeights(); setPos(); refreshBtns(); }, 100);
+  }
+
+  // Inicializar los tres carruseles independientes para escritorio
+  ['madrinas', 'novias', 'invitadas'].forEach(cat => {
+    const container = document.getElementById(`tripleContainer-${cat}`);
+    const track = document.getElementById(`tripleTrack-${cat}`);
+    const up = document.getElementById(`tripleUp-${cat}`);
+    const down = document.getElementById(`tripleDown-${cat}`);
+    if (container && track) {
+      createCarouselInstance(
+        cat,
+        categories[cat],
+        imagePatterns[cat].pattern,
+        container, track, up, down
+      );
+    }
+  });
 });
