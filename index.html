@@ -38,35 +38,78 @@
 <section class="carousel-section" id="galeria">
   <div class="section">
     <p style="margin-top: 115px !important;"></p>
-    <!-- <h2 >Nuestras Creaciones</h2> -->
 
-    <div class="tab-menu">
-      <button class="tab-button" data-category="madrinas">Madrinas</button>
-      <button class="tab-button active" data-category="novias">Novias</button>
-      <button class="tab-button" data-category="invitadas">Invitadas</button>
-    </div>
+    <!-- Modo carrusel único (móvil / tablet vertical) -->
+    <div class="carousel-single-mode">
+      <div class="tab-menu">
+        <button class="tab-button" data-category="madrinas">Madrinas</button>
+        <button class="tab-button active" data-category="novias">Novias</button>
+        <button class="tab-button" data-category="invitadas">Invitadas</button>
+      </div>
 
-    <div class="carousel-wrapper">
-      <div class="carousel-container" id="carouselContainer">
-
-        <!-- Flecha hacia arriba -->
-        <button class="carousel-arrow up" id="arrowUp">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M7 14l5-5 5 5z"/>
-          </svg>
-        </button>
-        
-        <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-wrapper">
+        <div class="carousel-container" id="carouselContainer">
+          <button class="carousel-arrow up" id="arrowUp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M7 14l5-5 5 5z"/>
+            </svg>
+          </button>
+          <div class="carousel-track" id="carouselTrack"></div>
+          <button class="carousel-arrow down" id="arrowDown">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </button>
         </div>
-        
-        <!-- Flecha hacia abajo -->
-        <button class="carousel-arrow down" id="arrowDown">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M7 10l5 5 5-5z"/>
-          </svg>
-        </button>
       </div>
     </div>
+
+    <!-- Modo triple carrusel (escritorio / iPad horizontal) -->
+    <div class="carousel-triple-mode">
+      <div class="carousel-triple">
+
+        <div class="carousel-column">
+          <h3 class="carousel-label">Madrinas</h3>
+          <div class="carousel-container" id="tripleContainer-madrinas">
+            <button class="carousel-arrow up" id="tripleUp-madrinas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+            </button>
+            <div class="carousel-track" id="tripleTrack-madrinas"></div>
+            <button class="carousel-arrow down" id="tripleDown-madrinas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="carousel-column">
+          <h3 class="carousel-label">Novias</h3>
+          <div class="carousel-container" id="tripleContainer-novias">
+            <button class="carousel-arrow up" id="tripleUp-novias">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+            </button>
+            <div class="carousel-track" id="tripleTrack-novias"></div>
+            <button class="carousel-arrow down" id="tripleDown-novias">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="carousel-column">
+          <h3 class="carousel-label">Invitadas</h3>
+          <div class="carousel-container" id="tripleContainer-invitadas">
+            <button class="carousel-arrow up" id="tripleUp-invitadas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z"/></svg>
+            </button>
+            <div class="carousel-track" id="tripleTrack-invitadas"></div>
+            <button class="carousel-arrow down" id="tripleDown-invitadas">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 

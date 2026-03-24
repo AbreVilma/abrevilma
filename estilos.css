@@ -354,6 +354,59 @@ body {
 }
 
 
+/* ===== TRIPLE CAROUSEL (DESKTOP) ===== */
+.carousel-single-mode {
+  display: block;
+}
+
+.carousel-triple-mode {
+  display: none;
+}
+
+.carousel-triple {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.carousel-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.carousel-label {
+  font-size: clamp(1.3rem, 1.8vw, 1.8rem);
+  font-weight: 250;
+  color: var(--primary-green);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 22px;
+  text-align: center;
+  position: relative;
+}
+
+.carousel-label::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.carousel-triple-mode .carousel-container {
+  height: auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+
 /* ===== INSTAGRAM ===== */
 .social-links {
   text-align: center;
@@ -909,6 +962,15 @@ body {
   /* .carousel-container {
     height: 55vh;
   } */
+}
+
+@media (min-width: 1024px) {
+  .carousel-single-mode {
+    display: none;
+  }
+  .carousel-triple-mode {
+    display: block;
+  }
 }
 
 @media (min-width: 1200px) {
